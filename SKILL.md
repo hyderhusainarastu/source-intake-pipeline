@@ -1,6 +1,6 @@
 ---
 name: source-intake-pipeline
-description: "Runs a candidate research source (PDF, scan, dataset, preprint, etc.) through a gated intake pipeline — metadata verification, citability classification, lawful-acquisition check, work-level dedupe, extraction, manifest and provenance registration, and ledger sign-off — before it may be annotated, mined, or cited anywhere downstream. Invoke this skill whenever a new source file is about to enter a research corpus, whenever an agent is asked to add a citation and the underlying file has not yet been through intake, or whenever a corpus needs an audit against this checklist."
+description: "Gated intake for a candidate research source (PDF, scan, dataset, preprint): verify metadata, classify citability, check lawful acquisition, dedupe, extract, register provenance and ledger. Use before any new file is cited, mined or annotated, or to audit a corpus."
 ---
 
 # Source Intake Pipeline

@@ -28,17 +28,29 @@ layout.
 
 ## Installation
 
-This is an [Agent Skill](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview) following the portable `SKILL.md`
-convention — a folder with a `SKILL.md` file (YAML frontmatter plus instructions) that an
-agent runtime discovers and loads when relevant.
+This is an [Agent Skill](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview) following the portable `SKILL.md` convention: a folder with a `SKILL.md` file (YAML frontmatter plus instructions). No dependencies and no script; `SKILL.md` is the whole deliverable.
 
-- **Claude Code:** copy this folder into `.claude/skills/source-intake-pipeline/` at your
-  project root (or your user-level skills directory to make it available across projects).
-- **Any other agent runtime that supports the `SKILL.md` convention:** copy this folder into
-  that runtime's equivalent skills directory. The `SKILL.md` file is self-contained and has no
-  dependency on Claude Code specifically.
+Clone the repo, then run `./install.sh` (with no flags it only prints help and the tools it detects).
 
-No dependencies to install and no script to run — `SKILL.md` is the whole deliverable.
+| Surface | How | Status |
+|---|---|---|
+| Claude Code | native skill: `./install.sh --claude` (symlinks into `~/.claude/skills/source-intake-pipeline`; add `--project DIR` for a project install) | not tested |
+| Codex | native skill: `./install.sh --agents --project DIR` (`.agents/skills/`) | not tested |
+| Gemini CLI | native skill via `.agents/skills`, or `./install.sh --gemini --project DIR` for a pointer block in `GEMINI.md` | not tested |
+| Cursor | `./install.sh --agents --project DIR`; Cursor reads `AGENTS.md` | not tested |
+| GitHub Copilot | `./install.sh --copilot --project DIR` (pointer block in `.github/copilot-instructions.md`) | not tested |
+| ChatGPT, Claude.ai, Gemini, local models | paste `PROMPT.md` into the chat with your source text | not tested |
+| `install.sh` itself | `bash test_install.sh` (offline) | tested in CI |
+
+Use `--copy` to copy instead of symlink, `--dry-run` to preview, `--uninstall` to remove only what the installer owns.
+
+## Quick start
+
+After installing, or after pasting `PROMPT.md`, say:
+
+> Run `incoming/smith2024_attention.pdf` through source intake. Verify its metadata from the document itself, classify its citability with evidence, check it against the corpus for duplicates, and stop at the first gate that fails.
+
+The agent works through the gates in `SKILL.md` in order and ends with either a ledger row that makes the source citable or the name of the gate that blocked it. The file name above is invented; `examples/synthetic-intake-walkthrough.md` shows a full run.
 
 ## Usage example
 
@@ -65,6 +77,24 @@ corpus's manifest fields from scratch. Renaming fields to fit your project is ex
 point is the coverage (identity, integrity, extraction status, classification, provenance
 linkage), not the exact names.
 
+## Limits
+
+- It is a methodology, not software: it cannot check a source by itself, and an agent can still misread a document. Spot-check the evidence it records.
+- It does not decide copyright questions; the lawful-acquisition gate records what you tell it.
+- Placeholder paths must be mapped to your project once.
+
+## Related
+
+- [deep-research-skill](https://github.com/hyderhusainarastu/deep-research-skill): research waves, verification levels and bounded negative findings; use it to find sources, then this skill to admit them.
+- [gated-research-pipeline](https://github.com/hyderhusainarastu/gated-research-pipeline): the wider gated workflow this intake step fits into.
+- [hallucinated-citation-checker](https://github.com/hyderhusainarastu/hallucinated-citation-checker): checks a BibTeX file against Crossref, OpenAlex and others.
+
+## Keywords
+
+research source intake, citation verification, provenance, bibliography, literature review, agent skill, SKILL.md
+
 ## License
 
-MIT — see `LICENSE`.
+MIT, see `LICENSE`.
+
+Part of palimnote-skills - more at https://github.com/hyderhusainarastu
