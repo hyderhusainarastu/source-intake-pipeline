@@ -4,6 +4,8 @@ A gated intake pipeline for new research sources: metadata verification, citabil
 classification, dedupe, extraction, provenance, and ledger registration — so nothing gets
 cited in a research project until it has actually been checked.
 
+**Works with:** Claude Code, Codex, Gemini CLI, Cursor, GitHub Copilot, ChatGPT, Claude.ai, and local models (see [Installation](#installation)).
+
 ## What it does
 
 When you're building a research corpus (for a paper, a lit review, a knowledge base — any
